@@ -533,13 +533,12 @@ async function callAI(sys,msg,maxTok){
     return '';
   }
   try{
-    var headers={'Content-Type':'application/json','anthropic-version':'2023-06-01'};
-    // When running from file://, use x-api-key; when in Claude.ai, use dangerous-direct
-    if(location.protocol==='file:'||location.hostname!=='claude.ai'){
-      headers['x-api-key']=apiKey;
-    } else {
-      headers['anthropic-dangerous-direct-browser-access']='true';
-    }
+    var headers={
+      'Content-Type':'application/json',
+      'anthropic-version':'2023-06-01',
+      'x-api-key':apiKey,
+      'anthropic-dangerous-direct-browser-access':'true'
+    };
     var r=await fetch('https://api.anthropic.com/v1/messages',{
       method:'POST',
       headers:headers,
